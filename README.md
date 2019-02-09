@@ -1,4 +1,4 @@
-# universal-react-redux-nextjs
+# next-dapps-boilerplate
 
 Small project that checks the capabilities of next.js
 
@@ -6,6 +6,7 @@ It uses:
 - next.js
 - redux
 - styled-components
+- web3.js
 - redux-responsive
 - custom next.js server
 
