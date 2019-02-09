@@ -1,0 +1,18 @@
+{
+  "ignore": [
+    "README.md",
+    ".gitignore",
+    "package.json",
+    "box-img-lg.png",
+    "box-img-sm.png",
+    "package-lock.json"
+  ],
+  "commands": {
+    "Compile contracts": "truffle compile",
+    "Migrate contracts": "truffle migrate",
+    "Test contracts": "truffle test"
+  },
+  "hooks": {
+    "post-unpack": "cd client && npm install && npm run link-contracts"
+  }
+}
