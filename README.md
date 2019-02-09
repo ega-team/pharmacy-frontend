@@ -11,12 +11,25 @@ It uses:
 
 ## Setup
 
-Install node.js version 7
+Install node.js
 
-Install yarn package manager
 
-Run `yarn install`
+### Ethereum
 
-Run `yarn run start`
+Run `npm install -g truffle`
+
+Run `truffle develop`
+
+Run `compile`
+
+Run `migrate`
+
+### client
+
+Run `cd client`
+
+Run `npm install`
+
+Run `yarn run dev`
 
 Hit `http://localhost:3000`
