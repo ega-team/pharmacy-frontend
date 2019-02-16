@@ -12,8 +12,8 @@ class Accounts extends React.Component {
     const { accounts, contract } = this.props;
     return (
       <div>
-        <div>source code S</div>
-        <SubmitAnswer />
+        <div>回答を送信 ID':hoge'</div>
+        <SubmitAnswer dataId={'hoge'}/>
       </div>
     );
   }

@@ -41,7 +41,7 @@ export class SubmitAnswer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataId: "",
+      dataId: props.dataId,
       dataArray: []
     };
   }
