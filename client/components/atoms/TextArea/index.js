@@ -13,7 +13,6 @@ const StyledTextArea = styled.textarea`
   &:focus {
     border: 3px solid skyblue;
   }
-  width: 400px;
   height: 200px;
   font-size: 1rem;
 `;
