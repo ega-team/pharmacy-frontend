@@ -76,7 +76,7 @@ class Accounts extends React.Component {
         </Ul>
         </HeaderDiv>
         <StyledHeader>Post a problem</StyledHeader>
-        <SubmitProblem />
+        <SubmitProblem accounts={accounts} contract={contract}/>
       </StyledAccounts>
     );
   }

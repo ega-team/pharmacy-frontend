@@ -1,7 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 import ReactDropzone from "react-dropzone";
-import Web3 from 'web3'
+import { keccak256 } from 'web3-utils'
 import styled, { css, injectGlobal } from "styled-components";
 import Encoding from "encoding-japanese";
 import Button from "./atoms/Button";
@@ -93,6 +93,7 @@ export class SubmitAnswer extends React.Component {
     });
   };
   handleSubmit() {
+    const {dataId, contract} = this.state
     console.log("submit");
     let ts = new Date().getTime();
     let ts2 = Math.floor(ts / 1000);
@@ -106,9 +107,10 @@ export class SubmitAnswer extends React.Component {
       ["a"], ["a"], "b", 10, ["c"]
     ]
     //const { dataArray, dataId } = this.state;
-    // const secret = Web3.utils.keccak256(["data_h", "data_w"])
-    // const hash = Web3.utils.keccak256(secret + ["data_h", "data_w"])
-    this.state.contract.methods.defineTheme(["data_h", "data_w"],["10", "20", "30"],"仕様です",9876567,["アンサー1", "アンサー2"]).send(option);
+    const secret = keccak256(["data_h", "data_w"])
+    const hash = keccak256(secret + ["data_h", "data_w"])
+    console.log(hash)
+    contract.methods.postAnswer(dataId, secret, hash).send(option);
     // console.log('ここで問題を送信:dataArray, dataId', dataArray, dataId);
   }
   render() {

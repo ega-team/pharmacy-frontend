@@ -78,7 +78,9 @@ export class SubmitProblem extends React.Component {
       ethValue: "",
       titleValue: "",
       contentsValue: "",
-      loadValue: []
+      loadValue: [],
+      accounts: props.accounts,
+      contract: props.contract,
     };
   }
   onDrop = files => {
@@ -119,6 +121,18 @@ export class SubmitProblem extends React.Component {
       contentsValue,
       loadValue
     } = this.state;
+    let ts = new Date().getTime();
+    let ts2 = Math.floor(ts / 1000);
+    let option = {
+      from: this.state.accounts[0],
+      gasPrice: "20000000000", // このトランザクションで支払う1ガス当たりの価格。単位は wei。
+      gas: "4000000",
+      nonce: ts2            // ガスリミット。このトランザクションで消費するガスの最大量。
+    };
+    let args = [
+      ["a"], ["a"], "b", 10, ["c"]
+    ]
+    this.state.contract.methods.defineTheme(["data_h", "data_w"],["10", "20", "30"],"仕様です",9876567,["アンサー1", "アンサー2"]).send(option);
     console.log(nameValue, ethValue, titleValue, contentsValue, loadValue); //これをコントラクトに送る
   }
   render() {
