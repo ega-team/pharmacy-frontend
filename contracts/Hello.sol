@@ -25,15 +25,14 @@ contract Hello {
         string[] memory data_header,
         string[] memory data,
         string memory specification,
-        uint reword,
         string[] memory answer_header
     ) public payable returns (uint) {
-        themes.push(Theme(data_header, data, specification, reword, answer_header, now + 1 weeks));
+        themes.push(Theme(data_header, data, specification, msg.value, answer_header, now + 1 weeks));
         return themes.length;
     }
 
-    function changeReward(uint theme_id, uint new_reward) public {
-        themes[theme_id].reward = new_reward;
+    function changeReward(uint theme_id) public payable {
+        themes[theme_id].reward = msg.value;
     }
 
     function getAllTheme() public view returns (Theme[] memory) {
