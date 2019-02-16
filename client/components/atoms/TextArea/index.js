@@ -13,18 +13,9 @@ const StyledTextArea = styled.textarea`
   &:focus {
     border: 3px solid skyblue;
   }
-  ${props =>
-    props.isMobile
-      ? css`
-          width: 650px;
-          height: 300px;
-          font-size: 2.5rem;
-        `
-      : css`
-          width: 400px;
-          height: 200px;
-          font-size: 1rem;
-        `};
+  width: 400px;
+  height: 200px;
+  font-size: 1rem;
 `;
 
 const TextArea = props => (

@@ -13,25 +13,15 @@ const StyledInput = styled.input`
   &:focus {
     border-bottom: 3px solid skyblue;
   }
-  ${props =>
-    props.isMobile
-      ? css`
-          width: 550px;
-          height: 60px;
-          font-size: 2.5rem;
-        `
-      : css`
-          width: 300px;
-          height: 30px;
-          font-size: 1rem;
-        `};
+  width: 300px;
+  height: 30px;
+  font-size: 1rem;
 `;
 
 const Input = props => (
   <StyledInput
     name={props.name}
     value={props.value}
-    isMobile={props.isMobile}
     onChange={props.handleInput}
     placeholder={props.placeholder}
   />
