@@ -17,6 +17,7 @@ class Users extends Component {
       <div>
       <div>Next.js</div>
       <div><Link href='/accounts'><a>My Accounts</a></Link></div>
+      <div><Link href='/submit'><a>Submit</a></Link></div>
       </div>
   	)
   }

@@ -1,15 +1,12 @@
 import React from 'react'
 import Link from 'next/link'
 import Web3Container from '../lib/Web3Container'
+import { SubmitDropzone } from '../components/Dropzone';
 
 const Accounts = ({ accounts, contract }) => (
-  <div>
-    <h1>My Accounts</h1>
-    {console.log('accounts', contract)}
-    <pre>{JSON.stringify(accounts, null, 4)}</pre>
-    <div><Link href='/dapp'><a>My Dapp</a></Link></div>
-    <div><Link href='/'><a>Home</a></Link></div>
-  </div>
+    <div>
+        <SubmitDropzone/>
+    </div>
 )
 
 export default () => (
