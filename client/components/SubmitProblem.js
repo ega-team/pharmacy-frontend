@@ -1,10 +1,10 @@
-import React from 'react';
-import {connect} from 'react-redux';
-import classNames from 'classnames';
-import ReactDropzone from 'react-dropzone';
-import styled, {css} from 'styled-components';
+import React from "react";
+import { connect } from "react-redux";
+import classNames from "classnames";
+import ReactDropzone from "react-dropzone";
+import styled, { css } from "styled-components";
 import Button from "./atoms/Button";
-import InquiryForm from './organisms/InquiryForm';
+import InquiryForm from "./organisms/InquiryForm";
 
 const DropZoneContainer = styled.div`
   height: 200px;
@@ -12,12 +12,14 @@ const DropZoneContainer = styled.div`
   border: 2px dashed #2c67d8;
   padding: 30px;
   font-size: 20px;
-  ${props => props.isDragActive && css`
+  ${props =>
+    props.isDragActive &&
+    css`
       border-color: green;
     `}
 `;
 
-const FileDropZone = styled (ReactDropzone)`
+const FileDropZone = styled(ReactDropzone)`
   position: relative;
   width: 300px;
   height: 300px;
@@ -37,67 +39,69 @@ const FileDropZone = styled (ReactDropzone)`
 `;
 
 export class SubmitProblem extends React.Component {
-    constructor(props){
-        super(props)
-        this.state ={
-            nameValue: '',
-            emailValue: '',
-            titleValue: '',
-            contentsValue: ''
-        }
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      nameValue: "",
+      emailValue: "",
+      titleValue: "",
+      contentsValue: ""
+    };
+  }
   onDrop = files => {
-    files.forEach (file => {
-      console.log (file);
+    files.forEach(file => {
+      console.log(file);
     });
   };
-  handleInput (e) {
-    const {name, value} = e.target;
-    switch(name){
-        case 'title':
-          this.setState({titleValue: value})
-        break
-        case 'email':
-          this.setState({emailValue: value})
-          break
-        case 'contents':
-          this.setState({contentsValue: value})
-          break
-        case 'name':
-          this.setState({nameValue: value})
-          break
+  handleInput(e) {
+    const { name, value } = e.target;
+    switch (name) {
+      case "title":
+        this.setState({ titleValue: value });
+        break;
+      case "email":
+        this.setState({ emailValue: value });
+        break;
+      case "contents":
+        this.setState({ contentsValue: value });
+        break;
+      case "name":
+        this.setState({ nameValue: value });
+        break;
     }
   }
-  handleSubmit(){
-      console.log('submit')
+  handleSubmit() {
+    console.log("submit");
   }
-  render () {
-    const {nameValue, emailValue, titleValue, contentsValue} = this.state;
+  render() {
+    const { nameValue, emailValue, titleValue, contentsValue } = this.state;
     return (
       <div className="app">
         <InquiryForm
-          handleInput={this.handleInput.bind (this)}
+          handleInput={this.handleInput.bind(this)}
           nameValue={nameValue}
           emailValue={emailValue}
           titleValue={titleValue}
           contentsValue={contentsValue}
         />
-        <FileDropZone onDrop={this.onDrop.bind (this)}>
-          {({getRootProps, getInputProps, isDragActive}) => (
+        <FileDropZone onDrop={this.onDrop.bind(this)}>
+          {({ getRootProps, getInputProps, isDragActive }) => (
             <DropZoneContainer
               isDragActive={isDragActive}
-              {...getRootProps ()}
-              className={classNames ('dropzone', {
-                'dropzone--isActive': isDragActive,
+              {...getRootProps()}
+              className={classNames("dropzone", {
+                "dropzone--isActive": isDragActive
               })}
             >
-              <input {...getInputProps ()} />
-              {isDragActive
-                ? <p>Drop files here...</p>
-                : <p>
-                    Try dropping some files here, or click to select files to
-                    upload.
-                  </p>}
+              <input {...getInputProps()} />
+              {isDragActive ? (
+                <p>Drop files here...</p>
+              ) : (
+                <p>
+                  Try dropping some files here, or click to select files to
+                  upload.
+                </p>
+              )}
             </DropZoneContainer>
           )}
         </FileDropZone>

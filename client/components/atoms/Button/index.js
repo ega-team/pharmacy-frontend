@@ -2,12 +2,11 @@ import React from "react";
 import styled, { css } from "styled-components";
 
 const StyledButton = styled.button`
-  
-                width: 200px;
-                margin-left: auto;
-                margin-right: auto;
-height: 50px;
-          font-size: 1rem;
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 50px;
+  font-size: 1rem;
   &:hover {
     background-color: #fba234;
   }
@@ -16,7 +15,11 @@ height: 50px;
 `;
 
 const Button = props => (
-  <StyledButton isMobile={props.isMobile} isModal={props.isModal} onClick={props.handleClick}>
+  <StyledButton
+    isMobile={props.isMobile}
+    isModal={props.isModal}
+    onClick={props.handleClick}
+  >
     {props.text}
   </StyledButton>
 );

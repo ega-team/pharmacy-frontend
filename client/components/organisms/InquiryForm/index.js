@@ -8,13 +8,14 @@ const StyledInquiryForm = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 20px;
-  ${props => (props.isMobile
-    ? css`
+  ${props =>
+    props.isMobile
+      ? css`
           width: 100%;
         `
-    : css`
+      : css`
           width: 400px;
-        `)};
+        `};
 `;
 
 export default function InquiryForm(props) {
@@ -26,7 +27,7 @@ export default function InquiryForm(props) {
     contentsValue
   } = props;
   return (
-    <StyledInquiryForm >
+    <StyledInquiryForm>
       <Text text="Name" isMust />
       <Input
         name="name"

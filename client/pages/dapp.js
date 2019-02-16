@@ -1,6 +1,6 @@
-import React from 'react'
-import Link from 'next/link'
-import Web3Container from '../lib/Web3Container'
+import React from "react";
+import Link from "next/link";
+import Web3Container from "../lib/Web3Container";
 
 class Dapp extends React.Component {
   state = {
@@ -9,25 +9,25 @@ class Dapp extends React.Component {
   };
 
   storeValue = async () => {
-    const { accounts, contract } = this.props
-    await contract.methods.set(5).send({ from: accounts[0] })
-    alert('Stored 5 into account')
+    const { accounts, contract } = this.props;
+    await contract.methods.set(5).send({ from: accounts[0] });
+    alert("Stored 5 into account");
   };
 
   getValue = async () => {
-    const { accounts, contract } = this.props
-    const response = await contract.methods.get().call({ from: accounts[0] })
-    this.setState({ balance: response })
+    const { accounts, contract } = this.props;
+    const response = await contract.methods.get().call({ from: accounts[0] });
+    this.setState({ balance: response });
   };
 
   getEthBalance = async () => {
-    const { web3, accounts } = this.props
-    const balanceInWei = await web3.eth.getBalance(accounts[0])
-    this.setState({ ethBalance: balanceInWei / 1e18 })
+    const { web3, accounts } = this.props;
+    const balanceInWei = await web3.eth.getBalance(accounts[0]);
+    this.setState({ ethBalance: balanceInWei / 1e18 });
   };
 
-  render () {
-    const { balance = 'N/A', ethBalance = 'N/A' } = this.state
+  render() {
+    const { balance = "N/A", ethBalance = "N/A" } = this.state;
     return (
       <div>
         <h1>My Dapp</h1>
@@ -38,17 +38,17 @@ class Dapp extends React.Component {
         <div>Account Balance: {balance}</div>
         <div>Ether Balance: {ethBalance}</div>
         <div>
-          <Link href='/accounts'>
+          <Link href="/accounts">
             <a>My Accounts</a>
           </Link>
         </div>
         <div>
-          <Link href='/'>
+          <Link href="/">
             <a>Home</a>
           </Link>
         </div>
       </div>
-    )
+    );
   }
 }
 
@@ -59,4 +59,4 @@ export default () => (
       <Dapp accounts={accounts} contract={contract} web3={web3} />
     )}
   />
-)
+);

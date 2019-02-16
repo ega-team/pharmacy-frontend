@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 import classNames from "classnames";
-import ReactDropzone from 'react-dropzone';
+import ReactDropzone from "react-dropzone";
 import styled, { css } from "styled-components";
 
 const DropZoneContainer = styled.div`
@@ -16,7 +16,7 @@ const DropZoneContainer = styled.div`
     `}
 `;
 
-const FileDropZone = styled (ReactDropzone)`
+const FileDropZone = styled(ReactDropzone)`
   position: relative;
   width: 300px;
   height: 300px;
@@ -37,29 +37,31 @@ const FileDropZone = styled (ReactDropzone)`
 
 export class SubmitDropzone extends React.Component {
   onDrop = files => {
-    files.forEach (file => {
-      console.log (file);
+    files.forEach(file => {
+      console.log(file);
     });
   };
-  render () {
+  render() {
     return (
       <div className="app">
-        <FileDropZone onDrop={this.onDrop.bind (this)}>
-          {({getRootProps, getInputProps, isDragActive}) => (
+        <FileDropZone onDrop={this.onDrop.bind(this)}>
+          {({ getRootProps, getInputProps, isDragActive }) => (
             <DropZoneContainer
               isDragActive={isDragActive}
-              {...getRootProps ()}
-              className={classNames ('dropzone', {
-                'dropzone--isActive': isDragActive,
+              {...getRootProps()}
+              className={classNames("dropzone", {
+                "dropzone--isActive": isDragActive
               })}
             >
-              <input {...getInputProps ()} />
-              {isDragActive
-                ? <p>Drop files here...</p>
-                : <p>
-                    Try dropping some files here, or click to select files to
-                    upload.
-                  </p>}
+              <input {...getInputProps()} />
+              {isDragActive ? (
+                <p>Drop files here...</p>
+              ) : (
+                <p>
+                  Try dropping some files here, or click to select files to
+                  upload.
+                </p>
+              )}
             </DropZoneContainer>
           )}
         </FileDropZone>

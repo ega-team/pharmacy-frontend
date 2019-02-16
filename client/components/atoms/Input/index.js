@@ -13,17 +13,18 @@ const StyledInput = styled.input`
   &:focus {
     border-bottom: 3px solid skyblue;
   }
-  ${props => (props.isMobile
-    ? css`
+  ${props =>
+    props.isMobile
+      ? css`
           width: 550px;
           height: 60px;
           font-size: 2.5rem;
         `
-    : css`
+      : css`
           width: 300px;
           height: 30px;
           font-size: 1rem;
-        `)};
+        `};
 `;
 
 const Input = props => (

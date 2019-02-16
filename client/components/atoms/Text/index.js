@@ -4,8 +4,8 @@ import { media } from "../../../utile/Helper";
 
 const TextStyle = styled.a`
   color: #fff;
-  font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", メイリオ, Meiryo,
-    "ＭＳ Ｐゴシック", sans-serif;
+  font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", メイリオ,
+    Meiryo, "ＭＳ Ｐゴシック", sans-serif;
   box-sizing: border-box;
 `;
 
