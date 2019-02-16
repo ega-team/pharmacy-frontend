@@ -1,6 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 import ReactDropzone from "react-dropzone";
+import Web3 from 'web3'
 import styled, { css, injectGlobal } from "styled-components";
 import Encoding from "encoding-japanese";
 import Button from "./atoms/Button";
@@ -18,7 +19,7 @@ injectGlobal`
 `;
 
 const DropZoneContainer = styled.div`
-  height: 100px;
+  height: 80px;
   width: 500px;
   border: 2px dashed rgb(135, 206, 235);
   padding: 30px;
@@ -105,6 +106,8 @@ export class SubmitAnswer extends React.Component {
       ["a"], ["a"], "b", 10, ["c"]
     ]
     //const { dataArray, dataId } = this.state;
+    // const secret = Web3.utils.keccak256(["data_h", "data_w"])
+    // const hash = Web3.utils.keccak256(secret + ["data_h", "data_w"])
     this.state.contract.methods.defineTheme(["data_h", "data_w"],["10", "20", "30"],"仕様です",9876567,["アンサー1", "アンサー2"]).send(option);
     // console.log('ここで問題を送信:dataArray, dataId', dataArray, dataId);
   }

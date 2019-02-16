@@ -5,12 +5,17 @@ import Web3Container from "../lib/Web3Container";
 
 const Table = styled.table`
   border-collapse: collapse;
+  width: 80%;
   border-spacing: 0;
-  width: 100%;
+`;
+
+const Top = styled.tr`
+  border: solid 1px #eee;
+  cursor: pointer;
 `;
 
 const Tr = styled.tr`
-  border-bottom: solid 1px #eee;
+  border: solid 1px #eee;
   cursor: pointer;
   &:hover {
     background-color: #d4f0fd;
@@ -33,11 +38,11 @@ const Accounts = ({ accounts, contract }) => (
   <div>
     <h1>問題一覧</h1>
     <Table>
-      <Tr>
+      <Top>
         <Th>報酬</Th>
         <Th>仕様</Th>
         <Th>データ</Th>
-      </Tr>
+      </Top>
       <Tr>
         <Td>{0.5}Eth</Td>
         <Td>hogehoge</Td>

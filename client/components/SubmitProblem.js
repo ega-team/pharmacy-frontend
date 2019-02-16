@@ -20,7 +20,7 @@ injectGlobal`
 `;
 
 const DropZoneContainer = styled.div`
-  height: 100px;
+  height: 80px;
   width: 500px;
   border: 2px dashed rgb(135, 206, 235);
   padding: 30px;
