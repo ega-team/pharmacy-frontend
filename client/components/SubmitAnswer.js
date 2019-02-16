@@ -1,14 +1,26 @@
 import React from "react";
 import classNames from "classnames";
 import ReactDropzone from "react-dropzone";
-import styled, { css } from "styled-components";
+import styled, { css, injectGlobal } from "styled-components";
 import Encoding from "encoding-japanese";
 import Button from "./atoms/Button";
 
+injectGlobal`
+  html, body {
+    height: 100%;
+    width: 100%;
+    background-color: rgb(27, 27, 27);
+    font-family: sans-serif;
+  }
+  body {
+    margin: 0;
+  }
+`;
+
 const DropZoneContainer = styled.div`
-  height: 200px;
-  width: 40%;
-  border: 2px dashed #2c67d8;
+  height: 100px;
+  width: 500px;
+  border: 2px dashed rgb(135, 206, 235);
   padding: 30px;
   font-size: 20px;
   ${props =>
@@ -37,6 +49,26 @@ const FileDropZone = styled(ReactDropzone)`
   }
 `;
 
+const StyledSubmitAnswer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Div = styled.div`
+  display: flex;
+`;
+const Image = styled.img`
+  width: 15%;
+  height: 20%;
+  margin-left: 45px;
+  margin-right: 15px;
+`;
+const Text = styled.p`
+  color: #fff;
+`;
+
 export class SubmitAnswer extends React.Component {
   constructor(props) {
     super(props);
@@ -60,11 +92,11 @@ export class SubmitAnswer extends React.Component {
   handleSubmit() {
     console.log("submit");
     const { dataArray, dataId } = this.state;
-    console.log('ここで問題を送信:dataArray, dataId', dataArray, dataId);
+    console.log("ここで問題を送信:dataArray, dataId", dataArray, dataId);
   }
   render() {
     return (
-      <div className="app">
+      <StyledSubmitAnswer>
         <FileDropZone onDrop={this.onDrop.bind(this)}>
           {({ getRootProps, getInputProps, isDragActive }) => (
             <DropZoneContainer
@@ -78,16 +110,16 @@ export class SubmitAnswer extends React.Component {
               {isDragActive ? (
                 <p>Drop files here...</p>
               ) : (
-                <p>
-                  Try dropping some files here, or click to select files to
-                  upload.
-                </p>
+                <Div>
+                  <Image src="../static/up.png" />
+                  <Text>Select or Drop your file here</Text>
+                </Div>
               )}
             </DropZoneContainer>
           )}
         </FileDropZone>
         <Button handleClick={this.handleSubmit.bind(this)} text="SUBMIT" />
-      </div>
+      </StyledSubmitAnswer>
     );
   }
 }

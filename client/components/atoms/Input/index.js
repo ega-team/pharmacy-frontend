@@ -13,7 +13,6 @@ const StyledInput = styled.input`
   &:focus {
     border-bottom: 3px solid skyblue;
   }
-  width: 300px;
   height: 30px;
   font-size: 1rem;
 `;

@@ -8,14 +8,8 @@ const StyledInquiryForm = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 20px;
-  ${props =>
-    props.isMobile
-      ? css`
-          width: 100%;
-        `
-      : css`
-          width: 400px;
-        `};
+  text-align: left;
+  width: 500px;
 `;
 
 export default function InquiryForm(props) {
@@ -36,7 +30,7 @@ export default function InquiryForm(props) {
         handleInput={handleInput}
         placeholder="Subject"
       />
-      <Text type="text" text="Enter email" isMust />
+      <Text type="text" text="Eth Price" isMust />
       <Input
         name="email"
         value={ethValue}
