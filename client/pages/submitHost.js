@@ -10,6 +10,8 @@ class Accounts extends React.Component {
     super(props);
   }
   render() {
+    // ここにaccoutとcontractが入ってくる
+    const { accounts, contract } = this.props;
     return (
       <div>
         <div>source code S</div>

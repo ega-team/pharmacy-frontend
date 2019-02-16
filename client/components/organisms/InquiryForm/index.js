@@ -19,13 +19,7 @@ const StyledInquiryForm = styled.div`
 `;
 
 export default function InquiryForm(props) {
-  const {
-    handleInput,
-    nameValue,
-    ethValue,
-    titleValue,
-    contentsValue
-  } = props;
+  const { handleInput, nameValue, ethValue, titleValue, contentsValue } = props;
   return (
     <StyledInquiryForm>
       <Text text="Name" isMust />
