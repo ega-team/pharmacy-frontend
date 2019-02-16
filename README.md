@@ -36,3 +36,6 @@ Run `yarn run dev`
 Hit `http://localhost:3000`
 
 動かない場合、`build/contracts`を`client/lib/contracts`にコピペしてみてください....
+
+
+help
