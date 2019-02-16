@@ -1,9 +1,21 @@
 import React, { Component } from "react";
 import withRedux from "next-redux-wrapper";
 import Link from "next/link";
-
+import styled, { css, injectGlobal } from "styled-components";
 import makeStore from "../store";
 import { fetchUsers } from "../actions/users-actions";
+
+injectGlobal`
+  html, body {
+    height: 100%;
+    width: 100%;
+    background-color: rgb(27, 27, 27);
+    font-family: sans-serif;
+  }
+  body {
+    margin: 0;
+  }
+`;
 
 class Users extends Component {
   static async getInitialProps({ store, pathname, query }) {
