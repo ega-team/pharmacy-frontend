@@ -53,13 +53,13 @@ export class SubmitProblem extends React.Component {
   onDrop = files => {
     const reader = new FileReader();
     files.forEach(file => {
-      reader.readAsText( file );
-      var that = this
-      reader.addEventListener( 'load', function() {
-        that.setState ({
-          loadValue: Encoding.convert (reader.result, 'UNICODE', 'SJIS'),
+      reader.readAsText(file);
+      var that = this;
+      reader.addEventListener("load", function() {
+        that.setState({
+          loadValue: reader.result
         });
-    })
+      });
     });
   };
   handleInput(e) {
@@ -81,8 +81,14 @@ export class SubmitProblem extends React.Component {
   }
   handleSubmit() {
     console.log("submit");
-    const { nameValue, ethValue, titleValue, contentsValue, loadValue } = this.state;
-    console.log( nameValue, ethValue, titleValue, contentsValue, loadValue) //これをコントラクトに送る
+    const {
+      nameValue,
+      ethValue,
+      titleValue,
+      contentsValue,
+      loadValue
+    } = this.state;
+    console.log(nameValue, ethValue, titleValue, contentsValue, loadValue); //これをコントラクトに送る
   }
   render() {
     const { nameValue, ethValue, titleValue, contentsValue } = this.state;

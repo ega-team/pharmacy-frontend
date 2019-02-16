@@ -8,7 +8,7 @@
     "dev": "next",
     "build": "next build",
     "start": "NODE_ENV=staging node server.js",
-    "prettier": "prettier  --write ./components/**/*.js"
+    "prettier": "prettier  --write ./pages/**/*.js"
   },
   "dependencies": {
     "axios": "^0.16.2",

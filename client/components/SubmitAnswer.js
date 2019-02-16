@@ -2,6 +2,8 @@ import React from "react";
 import classNames from "classnames";
 import ReactDropzone from "react-dropzone";
 import styled, { css } from "styled-components";
+import Encoding from "encoding-japanese";
+import Button from "./atoms/Button";
 
 const DropZoneContainer = styled.div`
   height: 200px;
@@ -35,12 +37,31 @@ const FileDropZone = styled(ReactDropzone)`
   }
 `;
 
-export class SubmitDropzone extends React.Component {
+export class SubmitAnswer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      dataId: props.dataId,
+      dataArray: []
+    };
+  }
   onDrop = files => {
+    const reader = new FileReader();
     files.forEach(file => {
-      console.log(file);
+      reader.readAsText(file);
+      var that = this;
+      reader.addEventListener("load", function() {
+        that.setState({
+          dataArray: reader.result
+        });
+      });
     });
   };
+  handleSubmit() {
+    console.log("submit");
+    const { dataArray, dataId } = this.state;
+    console.log('ここで問題を送信:dataArray, dataId', dataArray, dataId);
+  }
   render() {
     return (
       <div className="app">
@@ -65,6 +86,7 @@ export class SubmitDropzone extends React.Component {
             </DropZoneContainer>
           )}
         </FileDropZone>
+        <Button handleClick={this.handleSubmit.bind(this)} text="SUBMIT" />
       </div>
     );
   }
