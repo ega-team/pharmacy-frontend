@@ -22,7 +22,7 @@ export default function InquiryForm(props) {
   const {
     handleInput,
     nameValue,
-    emailValue,
+    ethValue,
     titleValue,
     contentsValue
   } = props;
@@ -45,7 +45,7 @@ export default function InquiryForm(props) {
       <Text type="text" text="Enter email" isMust />
       <Input
         name="email"
-        value={emailValue}
+        value={ethValue}
         handleInput={handleInput}
         placeholder="eth"
       />
