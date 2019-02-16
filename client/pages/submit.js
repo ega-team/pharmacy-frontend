@@ -5,6 +5,7 @@ import { SubmitDropzone } from '../components/Dropzone';
 
 const Accounts = ({ accounts, contract }) => (
     <div>
+        <div>source code submit !!</div>
         <SubmitDropzone/>
     </div>
 )

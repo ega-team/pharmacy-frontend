@@ -1,8 +1,22 @@
 import React from 'react';
+import classNames from "classnames";
 import ReactDropzone from 'react-dropzone';
-import styled from 'styled-components'
+import styled, { css } from "styled-components";
 
-const FileDropZone = styled(ReactDropzone)`
+const DropZoneContainer = styled.div`
+  height: 200px;
+  width: 40%;
+  border: 2px dashed #2c67d8;
+  padding: 30px;
+  font-size: 20px;
+  ${props =>
+    props.isDragActive &&
+    css`
+      border-color: green;
+    `}
+`;
+
+const FileDropZone = styled (ReactDropzone)`
   position: relative;
   width: 300px;
   height: 300px;
@@ -19,22 +33,34 @@ const FileDropZone = styled(ReactDropzone)`
     padding: 0 20px;
     text-align: center;
   }
-`
+`;
 
 export class SubmitDropzone extends React.Component {
   onDrop = files => {
     files.forEach (file => {
-        console.log(file)
+      console.log (file);
     });
   };
   render () {
     return (
       <div className="app">
-        <FileDropZone onDrop={this.onDrop.bind(this)}>
-          {({getRootProps}) => (
-            <div {...getRootProps()}>
-              <p>Drop files here, or click to select files</p>
-            </div>
+        <FileDropZone onDrop={this.onDrop.bind (this)}>
+          {({getRootProps, getInputProps, isDragActive}) => (
+            <DropZoneContainer
+              isDragActive={isDragActive}
+              {...getRootProps ()}
+              className={classNames ('dropzone', {
+                'dropzone--isActive': isDragActive,
+              })}
+            >
+              <input {...getInputProps ()} />
+              {isDragActive
+                ? <p>Drop files here...</p>
+                : <p>
+                    Try dropping some files here, or click to select files to
+                    upload.
+                  </p>}
+            </DropZoneContainer>
           )}
         </FileDropZone>
       </div>
