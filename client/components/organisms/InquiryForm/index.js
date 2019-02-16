@@ -21,7 +21,7 @@ export default function InquiryForm(props) {
         name="title"
         value={titleValue}
         handleInput={handleInput}
-        placeholder="BMI"
+        placeholder="exemple: BMI"
       />
       <Text type="text" text="Wei Price" isMust />
       <Input
