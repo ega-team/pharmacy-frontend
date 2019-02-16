@@ -1,11 +1,10 @@
 import React from "react";
-import { connect } from "react-redux";
 import classNames from "classnames";
 import ReactDropzone from "react-dropzone";
+import { keccak256 } from 'web3-utils'
 import styled, { css, injectGlobal } from "styled-components";
 import Encoding from "encoding-japanese";
 import Button from "./atoms/Button";
-import InquiryForm from "./organisms/InquiryForm";
 
 injectGlobal`
   html, body {
@@ -51,12 +50,13 @@ const FileDropZone = styled(ReactDropzone)`
   }
 `;
 
-const StyledSubmitProblem = styled.div`
+const StyledSubmitAnswer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
+
 const Div = styled.div`
   display: flex;
 `;
@@ -70,17 +70,14 @@ const Text = styled.p`
   color: #fff;
 `;
 
-export class SubmitProblem extends React.Component {
+export class SubmitAnswer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      nameValue: "",
-      ethValue: "",
-      titleValue: "",
-      contentsValue: "",
-      loadValue: [],
+      dataId: props.dataId,
       accounts: props.accounts,
       contract: props.contract,
+      dataArray: []
     };
   }
   onDrop = files => {
@@ -90,37 +87,14 @@ export class SubmitProblem extends React.Component {
       var that = this;
       reader.addEventListener("load", function() {
         that.setState({
-          loadValue: reader.result
+          dataArray: reader.result
         });
       });
     });
   };
-  handleInput(e) {
-    const { name, value } = e.target;
-    switch (name) {
-      case "title":
-        this.setState({ titleValue: value });
-        break;
-      case "email":
-        this.setState({ ethValue: value });
-        break;
-      case "contents":
-        this.setState({ contentsValue: value });
-        break;
-      case "name":
-        this.setState({ nameValue: value });
-        break;
-    }
-  }
   handleSubmit() {
+    const {dataId, contract} = this.state
     console.log("submit");
-    const {
-      nameValue,
-      ethValue,
-      titleValue,
-      contentsValue,
-      loadValue
-    } = this.state;
     let ts = new Date().getTime();
     let ts2 = Math.floor(ts / 1000);
     let option = {
@@ -132,20 +106,16 @@ export class SubmitProblem extends React.Component {
     let args = [
       ["a"], ["a"], "b", 10, ["c"]
     ]
-    this.state.contract.methods.defineTheme(["data_h", "data_w"],["10", "20", "30"],"仕様です",9876567,["アンサー1", "アンサー2"]).send(option);
-    console.log(nameValue, ethValue, titleValue, contentsValue, loadValue); //これをコントラクトに送る
+    //const { dataArray, dataId } = this.state;
+    const secret = keccak256(["data_h", "data_w"])
+    const hash = keccak256(secret + ["data_h", "data_w"])
+    console.log(hash)
+    contract.methods.postAnswer(dataId, secret, hash).send(option);
+    // console.log('ここで問題を送信:dataArray, dataId', dataArray, dataId);
   }
   render() {
-    const { nameValue, ethValue, titleValue, contentsValue } = this.state;
     return (
-      <StyledSubmitProblem>
-        <InquiryForm
-          handleInput={this.handleInput.bind(this)}
-          nameValue={nameValue}
-          ethValue={ethValue}
-          titleValue={titleValue}
-          contentsValue={contentsValue}
-        />
+      <StyledSubmitAnswer>
         <FileDropZone onDrop={this.onDrop.bind(this)}>
           {({ getRootProps, getInputProps, isDragActive }) => (
             <DropZoneContainer
@@ -168,7 +138,7 @@ export class SubmitProblem extends React.Component {
           )}
         </FileDropZone>
         <Button handleClick={this.handleSubmit.bind(this)} text="SUBMIT" />
-      </StyledSubmitProblem>
+      </StyledSubmitAnswer>
     );
   }
 }

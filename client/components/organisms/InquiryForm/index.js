@@ -8,53 +8,34 @@ const StyledInquiryForm = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 20px;
-  ${props =>
-    props.isMobile
-      ? css`
-          width: 100%;
-        `
-      : css`
-          width: 400px;
-        `};
+  text-align: left;
+  width: 500px;
 `;
 
 export default function InquiryForm(props) {
-  const {
-    handleInput,
-    nameValue,
-    ethValue,
-    titleValue,
-    contentsValue
-  } = props;
+  const { handleInput, nameValue, ethValue, titleValue, contentsValue } = props;
   return (
     <StyledInquiryForm>
-      <Text text="Name" isMust />
-      <Input
-        name="name"
-        value={nameValue}
-        handleInput={handleInput}
-        placeholder="First & Last Name"
-      />
-      <Text type="text" text="Subject" />
+      <Text type="text" text="Verification items" />
       <Input
         name="title"
         value={titleValue}
         handleInput={handleInput}
-        placeholder="Subject"
+        placeholder="exemple: BMI"
       />
-      <Text type="text" text="Enter email" isMust />
+      <Text type="text" text="Wei Price" isMust />
       <Input
         name="email"
         value={ethValue}
         handleInput={handleInput}
-        placeholder="eth"
+        placeholder="wei price"
       />
-      <Text type="text" text="test" isMust />
+      <Text type="text" text="Specification" isMust />
       <TextArea
         name="contents"
         value={contentsValue}
         handleInput={handleInput}
-        placeholder="test"
+        placeholder="specification"
       />
     </StyledInquiryForm>
   );
