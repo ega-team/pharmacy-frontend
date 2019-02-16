@@ -74,6 +74,8 @@ export class SubmitAnswer extends React.Component {
     super(props);
     this.state = {
       dataId: props.dataId,
+      accounts: props.accounts,
+      contract: props.contract,
       dataArray: []
     };
   }
@@ -91,8 +93,20 @@ export class SubmitAnswer extends React.Component {
   };
   handleSubmit() {
     console.log("submit");
-    const { dataArray, dataId } = this.state;
-    console.log("ここで問題を送信:dataArray, dataId", dataArray, dataId);
+    let ts = new Date().getTime();
+    let ts2 = Math.floor(ts / 1000);
+    let option = {
+      from: this.state.accounts[0],
+      gasPrice: "20000000000", // このトランザクションで支払う1ガス当たりの価格。単位は wei。
+      gas: "4000000",
+      nonce: ts2            // ガスリミット。このトランザクションで消費するガスの最大量。
+    };
+    let args = [
+      ["a"], ["a"], "b", 10, ["c"]
+    ]
+    //const { dataArray, dataId } = this.state;
+    this.state.contract.methods.defineTheme(["data_h", "data_w"],["10", "20", "30"],"仕様です",9876567,["アンサー1", "アンサー2"]).send(option);
+    // console.log('ここで問題を送信:dataArray, dataId', dataArray, dataId);
   }
   render() {
     return (

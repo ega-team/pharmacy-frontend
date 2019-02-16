@@ -37,7 +37,7 @@ class Accounts extends React.Component {
     return (
       <StyledAccounts>
         <StyledHeader>Send answer</StyledHeader>
-        <SubmitAnswer dataId={"hoge"} />
+        <SubmitAnswer dataId={"hoge"} accounts={accounts} contract={contract}/>
       </StyledAccounts>
     );
   }
