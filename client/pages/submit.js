@@ -13,7 +13,7 @@ class Accounts extends React.Component {
     return (
       <div>
         <div>回答を送信 ID':hoge'</div>
-        <SubmitAnswer dataId={'hoge'}/>
+        <SubmitAnswer dataId={'hoge'} accounts={accounts} contract={contract}/>
       </div>
     );
   }
