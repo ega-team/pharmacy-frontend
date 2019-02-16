@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import classNames from "classnames";
 import ReactDropzone from "react-dropzone";
 import styled, { css } from "styled-components";
+import Encoding from "encoding-japanese";
 import Button from "./atoms/Button";
 import InquiryForm from "./organisms/InquiryForm";
 
@@ -43,14 +44,22 @@ export class SubmitProblem extends React.Component {
     super(props);
     this.state = {
       nameValue: "",
-      emailValue: "",
+      ethValue: "",
       titleValue: "",
-      contentsValue: ""
+      contentsValue: "",
+      loadValue: []
     };
   }
   onDrop = files => {
+    const reader = new FileReader();
     files.forEach(file => {
-      console.log(file);
+      reader.readAsText( file );
+      var that = this
+      reader.addEventListener( 'load', function() {
+        that.setState ({
+          loadValue: Encoding.convert (reader.result, 'UNICODE', 'SJIS'),
+        });
+    })
     });
   };
   handleInput(e) {
@@ -60,7 +69,7 @@ export class SubmitProblem extends React.Component {
         this.setState({ titleValue: value });
         break;
       case "email":
-        this.setState({ emailValue: value });
+        this.setState({ ethValue: value });
         break;
       case "contents":
         this.setState({ contentsValue: value });
@@ -72,15 +81,17 @@ export class SubmitProblem extends React.Component {
   }
   handleSubmit() {
     console.log("submit");
+    const { nameValue, ethValue, titleValue, contentsValue, loadValue } = this.state;
+    console.log( nameValue, ethValue, titleValue, contentsValue, loadValue) //これをコントラクトに送る
   }
   render() {
-    const { nameValue, emailValue, titleValue, contentsValue } = this.state;
+    const { nameValue, ethValue, titleValue, contentsValue } = this.state;
     return (
       <div className="app">
         <InquiryForm
           handleInput={this.handleInput.bind(this)}
           nameValue={nameValue}
-          emailValue={emailValue}
+          ethValue={ethValue}
           titleValue={titleValue}
           contentsValue={contentsValue}
         />
