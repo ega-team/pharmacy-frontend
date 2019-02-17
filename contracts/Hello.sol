@@ -68,10 +68,10 @@ contract Hello {
 
     function postAnswer(
         uint theme_id,
-        bytes32 data_hash,
-        bytes32 data_secret_hash
+        string memory data_hash,
+        string memory data_secret_hash
         ) public {
-        answers.push(Answer(theme_id, data_hash, data_secret_hash, msg.sender));
+        answers.push(Answer(theme_id, stringToBytes32(data_hash), stringToBytes32(data_secret_hash), msg.sender));
     }
 
     mapping (bytes32 => uint) hashCount;
@@ -98,14 +98,15 @@ contract Hello {
         string memory answer_data,
         string memory secret_key
         ) public {
-        require(isSameBytes(getAnswerHash(theme_id), keccak256(abi.encodePacked(answer_data))));
+
+        require(getAnswerHash(theme_id) == keccak256(abi.encodePacked(answer_data)));
         bytes32 secret_hash = getSecretHashByThemeAndSender(theme_id, msg.sender);
-        require(isSameBytes(secret_hash, keccak256(abi.encodePacked(strConnect(answer_data, secret_key)))));
+        require(secret_hash == keccak256(abi.encodePacked(strConnect(answer_data, secret_key))));
         msg.sender.transfer(getReward(theme_id));
     }
 
-    function isSameBytes(bytes32 origin, bytes32 target) private pure returns (bool) {
-        return keccak256(abi.encodePacked(origin)) == keccak256(abi.encodePacked(target));
+    function isSameString(string memory origin, bytes32 target) private pure returns (bool) {
+        return keccak256(abi.encodePacked(origin)) == keccak256(abi.encode(target));
     }
 
     function getSecretHashByThemeAndSender(uint theme_id, address sender) private returns (bytes32) {
@@ -134,6 +135,16 @@ contract Hello {
             point++;
         }
         return string(str);
+    }
+
+    function stringToBytes32(string memory source) private returns (bytes32 result) {
+        bytes memory tempEmptyStringTest = bytes(source);
+        if (tempEmptyStringTest.length == 0) {
+            return 0x0;
+        }
+        assembly {
+            result := mload(add(source, 32))
+        }
     }
 }
 
