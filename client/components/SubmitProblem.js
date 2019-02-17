@@ -89,8 +89,11 @@ export class SubmitProblem extends React.Component {
       reader.readAsText(file);
       var that = this;
       reader.addEventListener("load", function() {
+        const Csv = reader.result.replace(/\r?\n/g, ',').split(',')
+        const header = Csv.slice(0, 12)
         that.setState({
-          loadValue: reader.result
+          header,
+          loadValue: Csv.slice(12)
         });
       });
     });
@@ -119,7 +122,8 @@ export class SubmitProblem extends React.Component {
       ethValue,
       titleValue,
       contentsValue,
-      loadValue
+      loadValue,
+      header
     } = this.state;
     let ts = new Date().getTime();
     let ts2 = Math.floor(ts / 1000);
@@ -130,13 +134,13 @@ export class SubmitProblem extends React.Component {
       value: ethValue,
       nonce: ts2 // ガスリミット。このトランザクションで消費するガスの最大量。
     };
-    let args = [["a"], ["a"], "b", 10, ["c"]];
+    let args = [header, loadValue, titleValue, contentsValue];
     this.state.contract.methods
       .defineTheme(
-        ["data_h", "data_w"],
-        ["10", "20", "30"],
-        "仕様です",
-        ["アンサー1", "アンサー2"]
+        header,
+        loadValue,
+        [`${titleValue}`],
+        contentsValue
       )
       .send(option);
   }
