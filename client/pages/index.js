@@ -32,6 +32,7 @@ position:relative;
 `;
 
 const Input = styled.input`
+  font-size: larger;
   outline: 0;
   height: 50px;
   padding: 0 10px;
@@ -65,7 +66,7 @@ const SearchBox = styled.div`
   width: 100%;
 `;
 const Div = styled.div`
-  margin-top: 100px;
+  margin-top: 50px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -85,7 +86,7 @@ const Ul = styled.ul`
 `;
 
 const Li = styled.li`
-  width: 170px;
+  width: 180px;
   text-align: center;
   background-color: #333;
   float: left;
@@ -114,7 +115,7 @@ const StyledHeader = styled.h1`
   border-bottom: solid 3px skyblue;
   position: relative;
   text-align: center;
-  width: 300px;
+  width: 400px;
   &:after {
     position: absolute;
     content: " ";
@@ -125,11 +126,49 @@ const StyledHeader = styled.h1`
   }
 `;
 
+const Table = styled.table`
+  margin-top: 70px;
+  border-collapse: collapse;
+  width: 60%;
+  border-spacing: 0;
+  margin-left: auto;
+  margin-right: auto;
+`;
+
+const Top = styled.tr`
+  border: solid 1px #eee;
+  cursor: pointer;
+`;
+
+const Tr = styled.tr`
+  border: solid 1px #eee;
+  cursor: pointer;
+  &:hover {
+    background-color: #d4f0fd;
+  }
+`;
+
+const Th = styled.th`
+  background-color: #a4a4a4;
+  border: solid 1px #424242;
+  text-align: center;
+  width: 25%;
+  padding: 15px 0;
+`;
+
+const Td = styled.td`
+  background-color: #eee;
+  border: solid 1px #424242;
+  text-align: center;
+  width: 25%;
+  padding: 15px 0;
+`;
+
 class Accounts extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: ""
+      value: "BMI"
     };
   }
   static async getInitialProps({ store, pathname, query }) {
@@ -140,8 +179,37 @@ class Accounts extends Component {
     this.setState({ value: e.target.value });
   }
 
+  handleClick(e) {
+    console.log(e.target.name);
+    const { contract } = this.props;
+    const { option } = this.state;
+    contract.methods
+      .getTheme(1)
+      .call(option)
+      .then(res => {
+        console.log(res);
+      });
+  }
+
+  createThemeTable() {
+    const { accounts, contract } = this.props;
+    const Tables = [1, 3, 2].map(item => {
+      // Tables = this.state.allTheme.map(item => { //this.state.allThemeから取得したものをViewに反映
+      return (
+        <Tr onClick={this.handleClick.bind(this)} name={"hoge"}>
+          <Td>{3 / item}Eth</Td>
+          <Td>BMI</Td>
+          <Td>{item}KB</Td>
+          <Td>2019/02/{20 + item}</Td>
+        </Tr>
+      );
+    });
+    return Tables;
+  }
+
   render() {
     const { accounts, contract } = this.props;
+    const Tables = this.createThemeTable();
     return (
       <div>
         <HeaderDiv>
@@ -153,7 +221,7 @@ class Accounts extends Component {
             </Li>
             <Li>
               <Link href="/submitHost">
-                <A>Submit Host</A>
+                <A>Publish Problem</A>
               </Link>
             </Li>
             <Li>
@@ -163,24 +231,32 @@ class Accounts extends Component {
             </Li>
           </Ul>
         </HeaderDiv>
-        <StyledHeader>Next.js</StyledHeader>
+        <StyledHeader>
+          臨床試験解析 アウトソース分散プラットフォーム
+        </StyledHeader>
         <Div>
           <SearchBox>
             <Form>
               <Input
                 type="text"
-                placeholder="キーワードを入力"
+                placeholder="キーワードで絞る"
                 value={this.state.value}
               />
               <InputButton
-                value="  Search"
+                value="    Filter"
                 onClick={() => Router.push("/list")}
               />
             </Form>
           </SearchBox>
-          <ImgDiv>
-            <img src="../static/user.jpg" />
-          </ImgDiv>
+          <Table>
+            <Top>
+              <Th>報酬</Th>
+              <Th>仕様</Th>
+              <Th>データ</Th>
+              <Th>期限</Th>
+            </Top>
+            {Tables}
+          </Table>
           <pre>{JSON.stringify(accounts[0], null, 4)}</pre>
         </Div>
       </div>

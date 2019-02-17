@@ -81,13 +81,16 @@ class Accounts extends React.Component {
     this.state = {
       option
     };
-    contract.methods.getAllTheme().call(option).then((res)=>{
-      console.log(res)
-      this.state = {
-        option,
-        allTheme: res,
-      }
-    })
+    contract.methods
+      .getAllTheme()
+      .call(option)
+      .then(res => {
+        console.log(res);
+        this.state = {
+          option,
+          allTheme: res
+        };
+      });
   }
   handleClick(e) {
     console.log(e.target.name);

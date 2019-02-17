@@ -38,7 +38,7 @@ const Ul = styled.ul`
 `;
 
 const Li = styled.li`
-  width: 170px;
+  width: 180px;
   text-align: center;
   background-color: #333;
   float: left;

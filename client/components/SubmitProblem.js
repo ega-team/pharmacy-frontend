@@ -89,8 +89,8 @@ export class SubmitProblem extends React.Component {
       reader.readAsText(file);
       var that = this;
       reader.addEventListener("load", function() {
-        const Csv = reader.result.replace(/\r?\n/g, ',').split(',')
-        const header = Csv.slice(0, 12)
+        const Csv = reader.result.replace(/\r?\n/g, ",").split(",");
+        const header = Csv.slice(0, 12);
         that.setState({
           header,
           loadValue: Csv.slice(12)
@@ -136,12 +136,7 @@ export class SubmitProblem extends React.Component {
     };
     let args = [header, loadValue, titleValue, contentsValue];
     this.state.contract.methods
-      .defineTheme(
-        header,
-        loadValue,
-        contentsValue,
-        [`${titleValue}`]
-      )
+      .defineTheme(header, loadValue, contentsValue, [`${titleValue}`])
       .send(option);
   }
   render() {
