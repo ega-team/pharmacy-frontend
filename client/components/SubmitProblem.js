@@ -139,8 +139,8 @@ export class SubmitProblem extends React.Component {
       .defineTheme(
         header,
         loadValue,
-        [`${titleValue}`],
-        contentsValue
+        contentsValue,
+        [`${titleValue}`]
       )
       .send(option);
   }
