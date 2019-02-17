@@ -105,10 +105,9 @@ export class SubmitAnswer extends React.Component {
     };
     const args = [["a"], ["a"], "b", 10, ["c"]];
     //const { dataArray, dataId } = this.state;
-    const secret = keccak256(["data_h", "data_w"]);
-    const hash = keccak256(secret + ["data_h", "data_w"]);
-    console.log(hash);
-    contract.methods.postAnswer(dataId, secret, hash).send(option);
+    const secret = keccak256(dataArray);
+    const hash = keccak256(dataArray + secret);
+    contract.methods.postAnswer(1, secret, hash).send(option);
     // console.log('ここで問題を送信:dataArray, dataId', dataArray, dataId);
   }
   render() {
