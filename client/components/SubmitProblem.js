@@ -127,6 +127,7 @@ export class SubmitProblem extends React.Component {
       from: this.state.accounts[0],
       gasPrice: "20000000000", // このトランザクションで支払う1ガス当たりの価格。単位は wei。
       gas: "4000000",
+      value: ethValue,
       nonce: ts2 // ガスリミット。このトランザクションで消費するガスの最大量。
     };
     let args = [["a"], ["a"], "b", 10, ["c"]];
@@ -135,11 +136,9 @@ export class SubmitProblem extends React.Component {
         ["data_h", "data_w"],
         ["10", "20", "30"],
         "仕様です",
-        9876567,
         ["アンサー1", "アンサー2"]
       )
       .send(option);
-    console.log(nameValue, ethValue, titleValue, contentsValue, loadValue); //これをコントラクトに送る
   }
   render() {
     const { nameValue, ethValue, titleValue, contentsValue } = this.state;
