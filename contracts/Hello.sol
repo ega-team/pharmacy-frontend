@@ -78,6 +78,7 @@ contract Hello {
     function getCurrentAnswer(uint theme_id) public returns (bytes32) {
         bytes32 hash = "";
         uint max = 0;
+        uint index = 0;
         for (uint i = 0; i < answers.length; i++) {
             if (theme_id == answers[i].theme_id) {
                 hashCount[answers[i].data_hash]++;
@@ -87,9 +88,10 @@ contract Hello {
             if (theme_id == answers[i].theme_id && max < hashCount[answers[i].data_hash]) {
                 max = hashCount[answers[i].data_hash];
                 hash = answers[i].data_hash;
+                index = i;
             }
         }
-        getTheme(theme_id).answer_hash = hash;
+        themes[index].answer_hash = hash;
         return hash;
     }
 
@@ -147,4 +149,3 @@ contract Hello {
         }
     }
 }
-
