@@ -1,7 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 import ReactDropzone from "react-dropzone";
-import { keccak256 } from 'web3-utils'
+import { keccak256 } from "web3-utils";
 import styled, { css, injectGlobal } from "styled-components";
 import Encoding from "encoding-japanese";
 import Button from "./atoms/Button";
@@ -93,23 +93,21 @@ export class SubmitAnswer extends React.Component {
     });
   };
   handleSubmit() {
-    const {dataId, contract} = this.state
+    const { dataId, contract } = this.state;
     console.log("submit");
-    let ts = new Date().getTime();
-    let ts2 = Math.floor(ts / 1000);
-    let option = {
+    const ts = new Date().getTime();
+    const ts2 = Math.floor(ts / 1000);
+    const option = {
       from: this.state.accounts[0],
       gasPrice: "20000000000", // このトランザクションで支払う1ガス当たりの価格。単位は wei。
       gas: "4000000",
-      nonce: ts2            // ガスリミット。このトランザクションで消費するガスの最大量。
+      nonce: ts2 // ガスリミット。このトランザクションで消費するガスの最大量。
     };
-    let args = [
-      ["a"], ["a"], "b", 10, ["c"]
-    ]
+    const args = [["a"], ["a"], "b", 10, ["c"]];
     //const { dataArray, dataId } = this.state;
-    const secret = keccak256(["data_h", "data_w"])
-    const hash = keccak256(secret + ["data_h", "data_w"])
-    console.log(hash)
+    const secret = keccak256(["data_h", "data_w"]);
+    const hash = keccak256(secret + ["data_h", "data_w"]);
+    console.log(hash);
     contract.methods.postAnswer(dataId, secret, hash).send(option);
     // console.log('ここで問題を送信:dataArray, dataId', dataArray, dataId);
   }
