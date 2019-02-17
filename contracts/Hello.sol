@@ -9,17 +9,17 @@ contract Hello {
         uint reward;
         string[] answer_header;
         uint limited_time;
+        bytes32 answer_hash;
     }
     struct Answer {
         uint theme_id;
-        string data_hash;
-        string data_secret_hash;
+        bytes32 data_hash;
+        bytes32 data_secret_hash;
         address sender;
     }
 
     Theme[] public themes;
     Answer[] public answers;
-    string public current_answer_hash;
 
     function defineTheme(
         string[] memory data_header,
@@ -27,12 +27,12 @@ contract Hello {
         string memory specification,
         string[] memory answer_header
     ) public payable returns (uint) {
-        themes.push(Theme(data_header, data, specification, msg.value, answer_header, now + 1 weeks));
+        themes.push(Theme(data_header, data, specification, msg.value, answer_header, now + 1 weeks, ""));
         return themes.length;
     }
 
     function changeReward(uint theme_id) public payable {
-        themes[theme_id].reward = msg.value;
+        themes[theme_id].reward += msg.value;
     }
 
     function getAllTheme() public view returns (Theme[] memory) {
@@ -58,17 +58,25 @@ contract Hello {
         return themes[theme_id].data;
     }
 
+    function getAnswerHash(uint theme_id) private view returns (bytes32) {
+        return themes[theme_id].answer_hash;
+    }
+
+    function getReward(uint theme_id) private view returns (uint) {
+        return themes[theme_id].reward;
+    }
+
     function postAnswer(
         uint theme_id,
-        string memory data_hash,
-        string memory data_secret_hash
+        bytes32 data_hash,
+        bytes32 data_secret_hash
         ) public {
         answers.push(Answer(theme_id, data_hash, data_secret_hash, msg.sender));
     }
 
-    mapping (string => uint) hashCount;
-    function getCurrentAnswer(uint theme_id) public returns (string memory) {
-        string memory hash = "";
+    mapping (bytes32 => uint) hashCount;
+    function getCurrentAnswer(uint theme_id) public returns (bytes32) {
+        bytes32 hash = "";
         uint max = 0;
         for (uint i = 0; i < answers.length; i++) {
             if (theme_id == answers[i].theme_id) {
@@ -81,8 +89,51 @@ contract Hello {
                 hash = answers[i].data_hash;
             }
         }
-        current_answer_hash = hash;
-        return current_answer_hash;
+        getTheme(theme_id).answer_hash = hash;
+        return hash;
+    }
+
+    function sendReward(
+        uint theme_id,
+        string memory answer_data,
+        string memory secret_key
+        ) public {
+        require(isSameBytes(getAnswerHash(theme_id), keccak256(abi.encodePacked(answer_data))));
+        bytes32 secret_hash = getSecretHashByThemeAndSender(theme_id, msg.sender);
+        require(isSameBytes(secret_hash, keccak256(abi.encodePacked(strConnect(answer_data, secret_key)))));
+        msg.sender.transfer(getReward(theme_id));
+    }
+
+    function isSameBytes(bytes32 origin, bytes32 target) private pure returns (bool) {
+        return keccak256(abi.encodePacked(origin)) == keccak256(abi.encodePacked(target));
+    }
+
+    function getSecretHashByThemeAndSender(uint theme_id, address sender) private returns (bytes32) {
+        for (uint i = 0; i < answers.length; i++) {
+            require(theme_id == answers[i].theme_id);
+            require(sender == answers[i].sender);
+            return answers[i].data_secret_hash;
+        }
+        return bytes32("");
+    }
+
+    function strConnect(string memory str1, string memory str2) private returns(string memory) {
+        bytes memory strbyte1 = bytes(str1);
+        bytes memory strbyte2 = bytes(str2);
+
+        bytes memory str = new bytes(strbyte1.length + strbyte2.length);
+
+        uint8 point = 0;
+
+        for(uint8 i = 0; i < strbyte1.length; i++) {
+            str[point] = strbyte1[i];
+            point++;
+        }
+        for(uint8 i = 0; i < strbyte2.length; i++){
+            str[point] = strbyte2[i];
+            point++;
+        }
+        return string(str);
     }
 }
 
