@@ -81,13 +81,13 @@ class Accounts extends React.Component {
     this.state = {
       option
     };
-    // contract.methods.getAllTheme().call(option).then((res)=>{
-    //   console.log(res)
-    //   this.state = {
-    //     option,
-    //     allTheme: res,
-    //   }
-    // })
+    contract.methods.getAllTheme().call(option).then((res)=>{
+      console.log(res)
+      this.state = {
+        option,
+        allTheme: res,
+      }
+    })
   }
   handleClick(e) {
     console.log(e.target.name);
@@ -103,7 +103,7 @@ class Accounts extends React.Component {
   createThemeTable() {
     const { accounts, contract } = this.props;
     const Tables = [0, 1, 2].map(item => {
-      // Tables = this.state.allTheme.map(item => {
+      // Tables = this.state.allTheme.map(item => { //this.state.allThemeから取得したものをViewに反映
       return (
         <Tr onClick={this.handleClick.bind(this)} name={"hoge"}>
           <Td>{0.5}Eth</Td>
