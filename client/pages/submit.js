@@ -36,7 +36,7 @@ const Ul = styled.ul`
 `;
 
 const Li = styled.li`
-  width: 170px;
+  width: 180px;
   text-align: center;
   background-color: #333;
   float: left;
@@ -76,7 +76,7 @@ class Accounts extends React.Component {
             </Li>
             <Li>
               <Link href="/submitHost">
-                <A>Submit Host</A>
+                <A>Submit Problem</A>
               </Link>
             </Li>
             <Li>
