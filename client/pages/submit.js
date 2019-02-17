@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import styled, { css } from "styled-components";
 import Web3Container from "../lib/Web3Container";
+import Loading from "../components/atoms/Loading";
 import { SubmitAnswer } from "../components/SubmitAnswer";
 
 const StyledAccounts = styled.div`
@@ -28,34 +29,34 @@ const StyledHeader = styled.h1`
 `;
 
 const Ul = styled.ul`
-list-style: none;
-overflow: hidden;
-margin-top: 0px;
-margin-left: auto;
+  list-style: none;
+  overflow: hidden;
+  margin-top: 0px;
+  margin-left: auto;
 `;
 
 const Li = styled.li`
-width: 170px;
-text-align: center;
-background-color: #333;
-float: left;
-height: 50px;
-line-height: 50px;
-margin-right: 2px;
+  width: 170px;
+  text-align: center;
+  background-color: #333;
+  float: left;
+  height: 50px;
+  line-height: 50px;
+  margin-right: 2px;
 `;
 
 const A = styled.a`
-text-decoration: none;
-color: #fff;
-font-weight: bold;
-padding: 20px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  padding: 20px;
 `;
 
 const HeaderDiv = styled.div`
-width: 100%;
-position: relative;
-display: flex;
-`
+  width: 100%;
+  position: relative;
+  display: flex;
+`;
 
 class Accounts extends React.Component {
   constructor(props) {
@@ -66,15 +67,27 @@ class Accounts extends React.Component {
     const { accounts, contract } = this.props;
     return (
       <StyledAccounts>
-                <HeaderDiv>
-        <Ul id="nav">
-          <Li><Link href="/index"><A>TopPage</A></Link></Li>
-          <Li><Link href="/submitHost"><A>Submit Host</A></Link></Li>
-          <Li><Link href="/accounts"><A>Mypage</A></Link></Li>
-        </Ul>
+        <HeaderDiv>
+          <Ul id="nav">
+            <Li>
+              <Link href="/index">
+                <A>TopPage</A>
+              </Link>
+            </Li>
+            <Li>
+              <Link href="/submitHost">
+                <A>Submit Host</A>
+              </Link>
+            </Li>
+            <Li>
+              <Link href="/accounts">
+                <A>Mypage</A>
+              </Link>
+            </Li>
+          </Ul>
         </HeaderDiv>
         <StyledHeader>Send answer</StyledHeader>
-        <SubmitAnswer dataId={"hoge"} accounts={accounts} contract={contract}/>
+        <SubmitAnswer dataId={"hoge"} accounts={accounts} contract={contract} />
       </StyledAccounts>
     );
   }
@@ -82,7 +95,7 @@ class Accounts extends React.Component {
 
 export default () => (
   <Web3Container
-    renderLoading={() => <div>Loading Accounts Page...</div>}
+    renderLoading={() => <Loading />}
     render={({ accounts, contract }) => (
       <Accounts accounts={accounts} contract={contract} />
     )}
