@@ -27,7 +27,7 @@ contract Hello {
         string memory specification,
         string[] memory answer_header
     ) public payable returns (uint) {
-        themes.push(Theme(data_header, data, specification, msg.value, answer_header, now + 1 weeks, ""));
+        themes.push(Theme(data_header, data, specification, msg.value, answer_header, now + 1 weeks, bytes32("")));
         return themes.length;
     }
 
