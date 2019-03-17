@@ -3,11 +3,11 @@ pragma experimental ABIEncoderV2;
 
 contract Hello {
     struct Theme {
-        string[] data_header;
-        string[] data;
+        string data_header;
+        string data;
         string specification;
         uint reward;
-        string[] answer_header;
+        string answer_header;
         uint limited_time;
         bytes32 answer_hash;
     }
@@ -22,10 +22,10 @@ contract Hello {
     Answer[] public answers;
 
     function defineTheme(
-        string[] memory data_header,
-        string[] memory data,
+        string memory data_header,
+        string memory data,
         string memory specification,
-        string[] memory answer_header
+        string memory answer_header
     ) public payable returns (uint) {
         themes.push(Theme(data_header, data, specification, msg.value, answer_header, now + 1 weeks, bytes32("")));
         return themes.length;
@@ -54,7 +54,7 @@ contract Hello {
         return themes[theme_id];
     }
 
-    function getData(uint theme_id) public view returns (string[] memory) {
+    function getData(uint theme_id) public view returns (string memory) {
         return themes[theme_id].data;
     }
 
