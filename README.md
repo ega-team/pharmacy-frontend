@@ -25,6 +25,12 @@ Run `compile`
 
 Run `migrate`
 
+`migrate`が動かない場合は
+```
+migrate --reset
+```
+さらにnonceをリセットするためにMetamaskプラグインもリセット
+
 ### client
 
 Run `cd client`
