@@ -37,6 +37,12 @@ migrate --reset
 ```
 さらにnonceをリセットするためにMetamaskプラグインもリセット
 
+#### Ethを補給する
+実行アドレスにEthがないとコントラクトを実行できない
+```
+truffle(develop)> await web3.eth.sendTransaction({from: '0xb76ba113dd8f25(truffle実行時に出てきたアカウントのどれか)', to: '0xeaAc98a1Fd4d226E9EE1（自分のMetamaskのアドレス）', value: web3.utils.toWei('10', 'ether')})
+```
+
 ### client
 
 Run `cd client`
