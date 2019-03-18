@@ -1,0 +1,11 @@
+Dataset Name,Variable,Label,Type,Length,Format,Keep variable in output dataset?,Source Datasets / variables,Derivation Logic
+ADSL,AGE,Age,N,8,3,Yes,DM.AGE,AGE=DM.AGE
+ADSL,AGEU,Age Units,C,$5,$5,Yes,DM.AGEU,AGEU=DM.AGEU
+ADSL,ARM,Description of Planned Arm,C,$141,$141,Yes,DM.ARM,ARM=DM.ARM
+ADSL,ARMCD,Planned Arm Code,C,$2,$2,Yes,DM.ARMCD,ARMCD=DM.ARMCD
+ADSL,ASR,Age/sex/race,C,$10,$10,Yes,"ADSL.AGE, ADSL.SEX, ADSL.RACES ","Concatenate 
+ADSL.AGE,
+ADSL.SEX and 
+ADSL.RACES separated by a 
+ADSL,BMI,Body mass index (kg/m2),N,8,8.2,Yes,"ADSL.WEIGHT, ADSL.HEIGHT",ADSL.WEIGHT/(ADSL.HEIGHT/100)**2
+ADSL,BSA,Body surface area at baseline (m2),N,8,8.1,Yes,"ADSL.WEIGHT, ADSL.HEIGHT",234.94*(ADSL.HEIGHT**0.422)*(ADSL.WEIGHT** 0.515)/10000
