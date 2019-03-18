@@ -57,3 +57,8 @@ Hit `http://localhost:3000`
 
 
 help
+
+### Ropstenにデプロイ
+```
+truffle migrate --network ropsten
+```
