@@ -62,7 +62,7 @@ contract Hello {
         return themes[theme_id].answer_hash;
     }
 
-    function setAnswerHash(uint theme_id, bytes32 answer_hash) private view {
+    function setAnswerHash(uint theme_id, bytes32 answer_hash) private {
         themes[theme_id].answer_hash = answer_hash;
     }
 
@@ -78,15 +78,15 @@ contract Hello {
         answers.push(Answer(theme_id, stringToBytes32(data_hash), stringToBytes32(data_secret_hash), msg.sender));
     }
 
-    mapping (bytes32 => uint) hashCount;
     function getCurrentAnswer(uint theme_id) public returns (bytes32) {
-        if (isSameBytes32(getAnswerHash(them_id), byte32(""))) {
+        if (isSameBytes32(getAnswerHash(theme_id), bytes32(""))) {
             calcCurrentAnswer(theme_id);
         }
-        return getAnswerHash(them_id);
+        return getAnswerHash(theme_id);
     }
 
-    function calcCurrentAnswer(uint theme_id) private view {
+    mapping (bytes32 => uint) hashCount;
+    function calcCurrentAnswer(uint theme_id) private {
         bytes32 answer_hash = "";
         uint max = 0;
         uint index = 0;
