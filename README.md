@@ -81,6 +81,11 @@ module.exports = {
 　(略)
 };
 ```
+developにデプロイ
+```
+$ truffle migrate --network development
+```
+
 ## tutorial
 [rantan/meti\-hackathon: Hello, World on Ethereum Blockchain](https://github.com/rantan/meti-hackathon)
 
