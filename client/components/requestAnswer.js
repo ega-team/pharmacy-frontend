@@ -80,7 +80,7 @@ export class requestAnswer extends React.Component {
   }
   handleSubmit() {
     const { themeId, contract } = this.state;
-    console.log("submit");
+    console.log("getCurrenctAnswer");
     const ts = new Date().getTime();
     const ts2 = Math.floor(ts / 1000);
     const option = {
