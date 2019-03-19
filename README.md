@@ -60,6 +60,27 @@ Hit `http://localhost:3000`
 ```
 truffle migrate --network ropsten
 ```
+### Ganacheでローカルネットワーク
+> ONE CLICK BLOCKCHAIN
+> Quickly fire up a personal Ethereum blockchain which you can use to run tests, execute commands, and inspect state while controlling how the chain operates.
+ローカルでGanacheを動かしてtruffleでそこにデプロイする
 
+[https://m0t0k1ch1st0ry.com/blog/2017/12/05/ganache/ Ganache で始める Ðapp 開発 · m0t0k1ch1st0ry]
+
+`truffle-config.js`
+```js
+　(略)
+module.exports = {
+  networks: {
+    development: {
+      host: 'localhost',
+      port: 7545,
+      network_id: 5777
+    }
+  }
+　(略)
+};
+```
 ## tutorial
 [rantan/meti\-hackathon: Hello, World on Ethereum Blockchain](https://github.com/rantan/meti-hackathon)
+
