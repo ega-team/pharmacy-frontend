@@ -187,8 +187,6 @@ class Accounts extends Component {
             .getAllTheme()
             .call(option)
             .then(res => {
-                console.log('res')
-                console.log(res)
                 this.setState({themes: res})
             });
     }
@@ -266,7 +264,7 @@ class Accounts extends Component {
                     <Tr>
                     <Td>{item.reward}Wei</Td>
                     <Td>{item.specification}</Td>
-                    <Td>KB</Td>
+                    <Td>{item.data_header}</Td>
                     <Td>{item.limited_time}</Td>
                     </Tr>
                 )
