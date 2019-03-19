@@ -6,6 +6,7 @@ import Router from "next/router";
 import styled, { css, injectGlobal } from "styled-components";
 import makeStore from "../store";
 import { fetchUsers } from "../actions/users-actions";
+import { requestAnswer } from "../components/requestAnswer";
 
 injectGlobal`
   html, body {
@@ -201,6 +202,7 @@ class Accounts extends Component {
           <Td>BMI</Td>
           <Td>{item}KB</Td>
           <Td>2019/02/{20 + item}</Td>
+          <td><requestAnswer themeId={1} accounts={accounts} contract={contract} /></td>
         </Tr>
       );
     });
