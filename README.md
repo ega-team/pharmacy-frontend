@@ -56,9 +56,10 @@ Hit `http://localhost:3000`
 動かない場合、`build/contracts`を`client/lib/contracts`にコピペしてみてください....
 
 
-help
-
 ### Ropstenにデプロイ
 ```
 truffle migrate --network ropsten
 ```
+
+## tutorial
+[rantan/meti\-hackathon: Hello, World on Ethereum Blockchain](https://github.com/rantan/meti-hackathon)
