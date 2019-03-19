@@ -69,7 +69,7 @@ const Text = styled.p`
   color: #fff;
 `;
 
-export class requestAnswer extends React.Component {
+export class RequestAnswer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -91,16 +91,18 @@ export class requestAnswer extends React.Component {
     };
     contract.methods
       .getCurrentAnswer(themeId)
-      .call(option)
+      .send(option)
       .then(res => {
         console.log(res);
       });
   }
   render() {
     return (
-      // <StyledSubmitAnswer>
+      <StyledSubmitAnswer>
+      <div class="hoge">
         <Button handleClick={this.handleSubmit.bind(this)} text="回答を確認する" />
-      // </StyledSubmitAnswer>
+        </div>
+      </StyledSubmitAnswer>
     );
   }
 }

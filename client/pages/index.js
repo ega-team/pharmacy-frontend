@@ -6,7 +6,7 @@ import Router from "next/router";
 import styled, { css, injectGlobal } from "styled-components";
 import makeStore from "../store";
 import { fetchUsers } from "../actions/users-actions";
-import { requestAnswer } from "../components/requestAnswer";
+import { RequestAnswer } from "../components/RequestAnswer";
 
 injectGlobal`
   html, body {
@@ -258,15 +258,17 @@ class Accounts extends Component {
               <Th>仕様</Th>
               <Th>データ</Th>
               <Th>期限</Th>
+              <Th>解答請求</Th>
             </Top>
         {
-            this.state.themes.map(item => { //this.state.allThemeから取得したものをViewに反映
+            this.state.themes.map((item, key) => { //this.state.allThemeから取得したものをViewに反映
                 return (
                     <Tr>
                     <Td>{item.reward}Wei</Td>
                     <Td>{item.specification}</Td>
                     <Td>{item.data_header}</Td>
                     <Td>{item.limited_time}</Td>
+                    <Td><RequestAnswer themeId={key} accounts={accounts} contract={contract} ></RequestAnswer></Td>
                     </Tr>
                 )
             })
