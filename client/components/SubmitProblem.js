@@ -136,7 +136,7 @@ export class SubmitProblem extends React.Component {
     };
     let args = [header, loadValue, titleValue, contentsValue];
     this.state.contract.methods
-      .defineTheme(header, loadValue, contentsValue, [`${titleValue}`])
+      .defineTheme(header.join(','), loadValue.join(','), contentsValue, titleValue)
       .send(option);
   }
   render() {
