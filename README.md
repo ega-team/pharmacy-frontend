@@ -67,7 +67,7 @@ truffle migrate --network ropsten
 
 [https://m0t0k1ch1st0ry.com/blog/2017/12/05/ganache/ Ganache で始める Ðapp 開発 · m0t0k1ch1st0ry]
 
-`truffle-config.js`
+`truffle.js`
 ```js
 　(略)
 module.exports = {
@@ -83,7 +83,8 @@ module.exports = {
 ```
 developにデプロイ
 ```
-$ truffle migrate --network development
+$ truffle compile --network development
+$ truffle migrate --network development --reset
 ```
 
 ## tutorial
