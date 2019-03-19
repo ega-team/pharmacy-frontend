@@ -169,7 +169,8 @@ class Accounts extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: "BMI"
+        value: "BMI",
+      themes: []
     };
   }
   static async getInitialProps({ store, pathname, query }) {
@@ -180,38 +181,39 @@ class Accounts extends Component {
     this.setState({ value: e.target.value });
   }
 
-  handleClick(e) {
-    console.log(e.target.name);
-    const { contract } = this.props;
-    const { option } = this.state;
-    contract.methods
-      .getTheme(1)
-      .call(option)
-      .then(res => {
-        console.log(res);
-      });
-  }
+    getThemes() {
+        const { contract } = this.props;
+        const { option } = this.state;
+        contract.methods
+            .getAllTheme()
+            .call(option)
+            .then(res => {
+                this.setState({themes: res})
+            });
+    }
 
-  createThemeTable() {
+    /*
+  async createThemeTable(themes) {
     const { accounts, contract } = this.props;
-    const Tables = [1, 3, 2].map(item => {
-      // Tables = this.state.allTheme.map(item => { //this.state.allThemeから取得したものをViewに反映
+    this.getThemes();
+    const Tables = this.state.themes.map(item => { //this.state.allThemeから取得したものをViewに反映
       return (
-        <Tr onClick={this.handleClick.bind(this)} name={"hoge"}>
-          <Td>{3 / item}Eth</Td>
+        <Tr name={"hoge"}>
+          <Td>Eth</Td>
           <Td>BMI</Td>
-          <Td>{item}KB</Td>
-          <Td>2019/02/{20 + item}</Td>
-          <td><requestAnswer themeId={1} accounts={accounts} contract={contract} /></td>
+          <Td>KB</Td>
+          <Td>2019/02/</Td>
         </Tr>
       );
     });
     return Tables;
   }
+    */
 
   render() {
     const { accounts, contract } = this.props;
-    const Tables = this.createThemeTable();
+    let Tables
+    this.getThemes();
     return (
       <div>
         <HeaderDiv>
@@ -257,7 +259,18 @@ class Accounts extends Component {
               <Th>データ</Th>
               <Th>期限</Th>
             </Top>
-            {Tables}
+        {
+            this.state.themes.map(item => { //this.state.allThemeから取得したものをViewに反映
+                return (
+                    <Tr>
+                    <Td>{item.reward}Wei</Td>
+                    <Td>{item.specification}</Td>
+                    <Td>{item.data_header}</Td>
+                    <Td>{item.limited_time}</Td>
+                    </Tr>
+                )
+            })
+        }
           </Table>
           <pre>{JSON.stringify(accounts[0], null, 4)}</pre>
         </Div>

@@ -62,6 +62,10 @@ contract Hello {
         return themes[theme_id].answer_hash;
     }
 
+    function setAnswerHash(uint theme_id, bytes32 answer_hash) private {
+        themes[theme_id].answer_hash = answer_hash;
+    }
+
     function getReward(uint theme_id) private view returns (uint) {
         return themes[theme_id].reward;
     }
@@ -74,9 +78,16 @@ contract Hello {
         answers.push(Answer(theme_id, stringToBytes32(data_hash), stringToBytes32(data_secret_hash), msg.sender));
     }
 
-    mapping (bytes32 => uint) hashCount;
     function getCurrentAnswer(uint theme_id) public returns (bytes32) {
-        bytes32 hash = "";
+        if (isSameBytes32(getAnswerHash(theme_id), bytes32(""))) {
+            calcCurrentAnswer(theme_id);
+        }
+        return getAnswerHash(theme_id);
+    }
+
+    mapping (bytes32 => uint) hashCount;
+    function calcCurrentAnswer(uint theme_id) private {
+        bytes32 answer_hash = "";
         uint max = 0;
         uint index = 0;
         for (uint i = 0; i < answers.length; i++) {
@@ -87,12 +98,11 @@ contract Hello {
         for (uint i = 0; i < answers.length; i++) {
             if (theme_id == answers[i].theme_id && max < hashCount[answers[i].data_hash]) {
                 max = hashCount[answers[i].data_hash];
-                hash = answers[i].data_hash;
+                answer_hash = answers[i].data_hash;
                 index = i;
             }
         }
-        themes[index].answer_hash = hash;
-        return hash;
+        setAnswerHash(theme_id, answer_hash);
     }
 
     function sendReward(
@@ -109,6 +119,10 @@ contract Hello {
 
     function isSameString(string memory origin, bytes32 target) private pure returns (bool) {
         return keccak256(abi.encodePacked(origin)) == keccak256(abi.encode(target));
+    }
+
+    function isSameBytes32(bytes32 origin, bytes32 target) private pure returns (bool) {
+        return keccak256(abi.encode(origin)) == keccak256(abi.encode(target));
     }
 
     function getSecretHashByThemeAndSender(uint theme_id, address sender) private returns (bytes32) {
