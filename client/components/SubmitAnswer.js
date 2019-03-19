@@ -93,7 +93,7 @@ export class SubmitAnswer extends React.Component {
     });
   };
   handleSubmit() {
-    const { dataId, contract } = this.state;
+    const { dataId, contract, dataArray } = this.state;
     console.log("submit");
     const ts = new Date().getTime();
     const ts2 = Math.floor(ts / 1000);
@@ -104,11 +104,13 @@ export class SubmitAnswer extends React.Component {
       nonce: ts2 // ガスリミット。このトランザクションで消費するガスの最大量。
     };
     const args = [["a"], ["a"], "b", 10, ["c"]];
-    //const { dataArray, dataId } = this.state;
-    const secret = keccak256(dataArray);
-    const hash = keccak256(dataArray + secret);
-    contract.methods.postAnswer(1, secret, hash).send(option);
+    // const { dataArray, dataId } = this.state;
+    const secret = Math.random().toString(36).slice(-10);
+    const data_hash = keccak256(dataArray);
+    const data_secret_hash = keccak256(dataArray + secret);
+    contract.methods.postAnswer(1, data_hash, data_secret_hash).send(option);
     // console.log('ここで問題を送信:dataArray, dataId', dataArray, dataId);
+    console.log('secret: ',secret);
   }
   render() {
     return (
